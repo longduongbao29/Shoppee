@@ -8,15 +8,20 @@
 </head>
 
 <body>
+    {{#if showHeader}}
     <header>
         {{>header}}
     </header>
+    {{/if}}
 
     {{{body}}}
 
+    {{#if showFooter}}
     <footer>
         {{>footer}}
     </footer>
+    {{/if}}
+    <!-- script js -->
 
 </body>
 
