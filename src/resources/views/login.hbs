@@ -5,9 +5,6 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link rel="stylesheet" data-modern="true"
         href="https://deo.shopeemobile.com/shopee/shopee-pcmall-live-sg/assets/bundle.b47e15f4f77bdc8b.css">
-    <link rel="preload"
-        href="https://deo.shopeemobile.com/shopee/shopee-pcmall-live-sg/assets/bundle.b47e15f4f77bdc8b.css" as="style"
-        data-modern="true">
     <link rel="stylesheet" href="/css/login.css">
 </head>
 
@@ -181,7 +178,7 @@
                         <div class="Gxi65y">
                             <div class="MIUGgs"></div>
                             <div>
-                                <form>
+                                <form id="loginForm">
                                     <div class="IxqCyD J1i6cp B-fiUo" style="border-radius: 10px;">
                                         <div class="gZNAGg">
                                             <div class="KG+Utm">
@@ -194,24 +191,72 @@
                                             <div class="D3QIf1">
                                                 <div class="yup5K8"><input class="pDzPRp" type="text"
                                                         placeholder="Email/Số điện thoại/Tên đăng nhập"
-                                                        autocomplete="on" name="loginKey" maxlength="128"
-                                                        value="longduongbao29@gmail.com"></div>
+                                                        autocomplete="on" id="username" name="username" maxlength="128">
+                                                </div>
                                                 <div class="pYVjxt"></div>
                                             </div>
                                             <div class="vkgBkQ">
                                                 <div class="yup5K8"><input class="pDzPRp" type="password"
                                                         placeholder="Mật khẩu" autocomplete="current-password"
-                                                        name="password" maxlength="16" value="ma"></div>
+                                                        id="password" name="password" maxlength="16"></div>
                                                 <div class="pYVjxt"></div>
-                                            </div><button class="wyhvVD _1EApiB hq6WM5 L-VL8Q cepDQ1 _7w24N1">Đăng
+                                            </div><button class="wyhvVD _1EApiB hq6WM5 L-VL8Q cepDQ1 _7w24N1"
+                                                type="button" onclick="login()">Đăng
                                                 nhập</button>
 
                                             <div class="XLzpXt" style="margin-top: 20px;">
+                                                <div id="message"></div>
                                                 <div class="Oug9xv Z8OMtU">Bạn mới biết đến Shopee? <a class="wzgwUg"
-                                                        href="/buyer/signup?next=https%3A%2F%2Fshopee.vn%2F">Đăng ký</a>
+                                                        onclick="showRegisterForm()">Đăng ký</a>
                                                 </div>
+
+                                            </div>
+
+                                        </div>
+                                </form>
+
+                            </div>
+                            <div>
+                                <form id="registerForm">
+                                    <div class="lbI0tH J1i6cp B-fiUo">
+                                        <div class="gZNAGg">
+                                            <div class="KG+Utm">
+                                                <div class="K1dDgL">Đăng ký</div>
                                             </div>
                                         </div>
+                                        <div class="yXry6s">
+                                            <div></div>
+                                            <div class="D3QIf1">
+                                                <div class="yup5K8"><input class="pDzPRp" type="text"
+                                                        placeholder="Tên đăng nhập" id="r-username" autocomplete="tel"
+                                                        name="username" value=""></div>
+                                                <div class="pYVjxt"></div>
+                                                <div class="vkgBkQ">
+                                                    <div class="yup5K8"><input class="pDzPRp" type="password"
+                                                            placeholder="Mật khẩu" id="r-password" autocomplete="tel"
+                                                            name="password" value=""></div>
+                                                    <div class="pYVjxt"></div>
+                                                </div>
+
+                                            </div><button class="wyhvVD _1EApiB hq6WM5 L-VL8Q +xdRRN cepDQ1 _7w24N1"
+                                                onclick="register()">Tiếp theo</button>
+                                            <div class="btS4Qu">
+                                                <div class="XZg02F">Bằng việc đăng kí, bạn đã đồng ý với Shopee về <a
+                                                        href="https://help.shopee.vn/portal/article/77243"
+                                                        class="TVFtd9" target="_blank" rel="noopener noreferrer">Điều
+                                                        khoản dịch vụ</a> &amp; <a
+                                                        href="https://help.shopee.vn/portal/article/77244"
+                                                        class="TVFtd9" target="_blank" rel="noopener noreferrer">Chính
+                                                        sách bảo mật</a></div>
+                                            </div>
+                                        </div>
+                                        <div class="XLzpXt">
+                                            <div id="message"></div>
+                                            <div class="Oug9xv Z8OMtU">Bạn đã có tài khoản? <a class="wzgwUg"
+                                                    onclick="showLoginForm()">Đăng nhập</a>
+                                            </div>
+                                        </div>
+                                    </div>
                                 </form>
                             </div>
                         </div>
@@ -433,6 +478,11 @@
             <div class="u+rzIW" id="BackgroundImagePortalAnchor"></div>
         </div>
     </div>
+    <script>
+        // Tạo biến global để chứa dữ liệu từ Handlebars template
+        var isLoginForm = {{{ isLoginForm }}};
+    </script>
+    <script src="/js/login.js"></script>
 </body>
 
 </html>

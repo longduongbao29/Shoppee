@@ -144,28 +144,31 @@
                         </a>
                     </li>
 
+                    {{#if loggedIn}}
+                    <li class="header__nav-item header__nav-user">
+                        <img src="/img/user.png" class="header__nav-user-avt">
+                        <a href="#" class="header__nav-item-link header__nav-item--bold">{{user.username}}</a>
+                        <ul class="header__nav-user-menu">
+                            <li class="header__nav-user-item">
+                                <a href="#">Tài khoản của tôi</a>
+                            </li>
+                            <li class="header__nav-user-item">
+                                <a href="#">Đơn mua</a>
+                            </li>
+                            <li class="header__nav-user-item">
+                                <a href="/logout">Đăng xuất</a>
+                            </li>
+                        </ul>
+                    </li>
+                    {{else}}
                     <li class="header__nav-item header__nav-item--bold header__nav-item--separate">
-                        <a href="#" class="header__nav-item-link">Đăng ký</a>
+                        <a href="/register" class="header__nav-item-link">Đăng ký</a>
                     </li>
                     <li class="header__nav-item header__nav-item--bold">
                         <a href="/login" class="header__nav-item-link">Đăng nhập</a>
                     </li>
+                    {{/if}}
 
-                    <!-- <li class="header__nav-item header__nav-user">
-                                <img src="/img/user.png" class="header__nav-user-avt">
-                                <a href="#" class="header__nav-item-link header__nav-item--bold">Lục Thiên Phong</a>
-                                <ul class="header__nav-user-menu">
-                                    <li class="header__nav-user-item">
-                                        <a href="#">Tài khoản của tôi</a>
-                                    </li>
-                                    <li class="header__nav-user-item">
-                                        <a href="#">Đơn mua</a>
-                                    </li>
-                                    <li class="header__nav-user-item">
-                                        <a href="#">Đăng xuất</a>
-                                    </li>
-                                </ul>
-                            </li> -->
                 </ul>
             </nav>
             <!-- search -->
