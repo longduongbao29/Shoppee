@@ -1,6 +1,12 @@
-const dataUrl = 'https://cdn.crfnetwork.cyou/database/shopee.json'
 
-fetch(dataUrl)
+
+fetch('/products', {
+    method: 'get',
+    headers: {
+        'Content-Type': 'application/json'
+    },
+
+})
     .then(response => response.json())
     .then(renderItem)
     .then(responsive)

@@ -1,8 +1,8 @@
-const pageRouter = require('./site');
+const siteRouter = require('./site');
 const loginRouter = require('./login');
 function route(app) {
 
-    app.use('/', pageRouter);
+    app.use('/', siteRouter);
     app.use('/', loginRouter);
 
 }

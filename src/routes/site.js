@@ -2,11 +2,14 @@ const express = require('express');
 
 const router = express.Router();
 
-const pageController = require("../app/controllers/SiteController");
+const siteController = require("../app/controllers/SiteController");
+const loginController = require("../app/controllers/LoginController");
 
-router.get('/', pageController.home);
-router.get('/home', pageController.home);
-router.get('/login', pageController.loginSite);
-router.get('/register', pageController.registerSite);
+router.get('/', siteController.home);
+router.get('/home', siteController.home);
+router.get('/login', siteController.loginSite);
+router.get('/register', siteController.registerSite);
+router.get('/profile', loginController.checkLogin, siteController.profile)
+router.get('/products', siteController.getProducts)
 
 module.exports = router;

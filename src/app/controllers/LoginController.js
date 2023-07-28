@@ -66,24 +66,19 @@ class LoginController {
         })
 
     }
-    loggedIn(req) {
-        if (req.session.loggedInUser) {
-            return true;
-        } else {
-
-            return false;
-        }
-    }
 
     checkLogin(req, res, next) {
-        if (this.loggedIn(req)) {
-            return next;
+        if (!!req.session.loggedInUser) {
+            return next(); // Gọi hàm next() để tiếp tục chuyển tiếp request và response
         } else {
             // Người dùng chưa đăng nhập, chuyển hướng đến trang đăng nhập
             return res.redirect('/login');
         }
     }
 
+    loggedIn(req) {
+        return !!req.session.loggedInUser;
+    }
     logout(req, res) {
         req.session.destroy((err) => {
             if (err) {
