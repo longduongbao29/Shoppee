@@ -11,5 +11,6 @@ router.get('/login', siteController.loginSite);
 router.get('/register', siteController.registerSite);
 router.get('/profile', loginController.checkLogin, siteController.profile)
 router.get('/products', siteController.getProducts)
+router.get('/order/:id', siteController.order)
 
 module.exports = router;

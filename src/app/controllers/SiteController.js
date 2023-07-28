@@ -53,6 +53,14 @@ class SiteController {
             return res.render('profile', { showHeader: true, showFooter: true, loggedIn: true, user: user });
         })
     }
+    order(req, res) {
+        var product_id = req.params.id;
+        db.query("SELECT * FROM products WHERE products.id=?", product_id, function (err, product) {
+            // return res.send(product)
+            res.render('order', { showHeader: true, showFooter: true, product: product[0] });
+        })
+
+    }
 }
 
 

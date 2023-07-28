@@ -13,7 +13,13 @@ fetch('/products', {
     .then(handlePagination)
 
 function shuffer() {
-    fetch(dataUrl)
+    fetch('/products', {
+        method: 'get',
+        headers: {
+            'Content-Type': 'application/json'
+        },
+
+    })
         .then(response => response.json())
         .then(list => {
             list = list.sort(() => Math.random() - 0.5)
@@ -31,7 +37,7 @@ function renderItem(items) {
     var htmls = items.map(function (item) {
         return `
         <div data="${item.id}" class="col l-2-4 m-3 c-6 home-product-item">
-            <a class="home-product-item-link" href="#">
+            <a class="home-product-item-link" href="/order/${item.id}">
                 <div class="home-product-item__img" style="background-image: url(./img/home/${item.id}.PNG);"></div>
                 <div class="home-product-item__info">
                     <h4 class="home-product-item__name">${item.name}</h4>
