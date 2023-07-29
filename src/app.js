@@ -11,7 +11,7 @@ const app = express();
 const port = 3000;
 const route = require('./routes');
 
-app.use(morgan('combined'));
+app.use(morgan(':method :url :response-time'));
 //Lấy data từ form
 app.use(bodyParser.urlencoded({ extended: false }))
 app.use(bodyParser.json())

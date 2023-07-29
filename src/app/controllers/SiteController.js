@@ -13,7 +13,8 @@ class SiteController {
         res.render('home', { showHeader: true, showFooter: true, loggedIn: LoginController.loggedIn(req), user: user });
     }
     getProducts(req, res) {
-        db.query("SELECT * FROM products", function (err, products) {
+        const page = req.params.page;
+        db.query("SELECT *,FORMAT(oldPrice, 0) AS oldPrice,FORMAT(newPrice, 0) AS newPrice FROM products WHERE products.id BETWEEN ? AND ?", [(page - 1) * 25 + 1, page * 25], function (err, products) {
 
             if (err) {
                 return res.status(404).send(err);
@@ -55,12 +56,52 @@ class SiteController {
     }
     order(req, res) {
         var product_id = req.params.id;
-        db.query("SELECT * FROM products WHERE products.id=?", product_id, function (err, product) {
+        db.query("SELECT *,FORMAT(oldPrice, 0) AS oldPrice,FORMAT(newPrice, 0) AS newPrice FROM products WHERE products.id=?", product_id, function (err, product) {
             // return res.send(product)
-            res.render('order', { showHeader: true, showFooter: true, product: product[0] });
+            res.render('order', { showHeader: true, showFooter: true, loggedIn: true, product: product[0] });
         })
 
     }
+    confirmOrder(req, res) {
+        const id = req.params.id;
+        const user_id = req.session.loggedInUser.id;
+
+        // Hàm thực hiện truy vấn products
+        function getProduct() {
+            return new Promise((resolve, reject) => {
+                db.query("SELECT *,FORMAT(newPrice,0) as newPrice FROM products WHERE products.id = ?", id, function (err, product_) {
+                    if (err) {
+                        reject(err);
+                    } else {
+                        resolve(product_[0]);
+                    }
+                });
+            });
+        }
+
+        // Hàm thực hiện truy vấn user_infos
+        function getUser() {
+            return new Promise((resolve, reject) => {
+                db.query("SELECT * FROM user_infos WHERE user_infos.id = ?", user_id, function (err, user_) {
+                    if (err) {
+                        reject(err);
+                    } else {
+                        resolve(user_[0]);
+                    }
+                });
+            });
+        }
+
+        // Sử dụng Promise.all để đợi cả hai truy vấn hoàn thành
+        Promise.all([getProduct(), getUser()])
+            .then(([product, user]) => {
+                res.render('confirm_order', { showHeader: true, showFooter: true, loggedIn: true, product: product, user: user });
+            })
+            .catch((err) => {
+                res.send(err); // Xử lý lỗi nếu có
+            });
+    }
+
 }
 
 

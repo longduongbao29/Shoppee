@@ -22,6 +22,7 @@ class LoginController {
                     return res.status(500).send(err.message)
                 } if (result) {
                     req.session.loggedInUser = {
+                        id: user.id,
                         username: username,
                         role: 'user', // Hoặc 'admin' nếu là quản trị viên
                     };

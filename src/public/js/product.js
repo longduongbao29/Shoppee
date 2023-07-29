@@ -1,16 +1,38 @@
 
 
-fetch('/products', {
+fetch('/products/1', {
     method: 'get',
     headers: {
         'Content-Type': 'application/json'
     },
 
 })
-    .then(response => response.json())
+    .then(response =>
+        response.json()
+    )
     .then(renderItem)
     .then(responsive)
     .then(handlePagination)
+
+
+function reload() {
+    const page = Number(document.querySelector('.pagination-item--active').textContent);
+    console.log(page);
+    const link = '/products/' + page;
+    fetch(link, {
+        method: 'get',
+        headers: {
+            'Content-Type': 'application/json'
+        },
+
+    })
+        .then(response =>
+            response.json()
+        )
+        .then(renderItem)
+        .then(responsive)
+        .then(handlePagination)
+}
 
 function shuffer() {
     fetch('/products', {
@@ -22,7 +44,8 @@ function shuffer() {
     })
         .then(response => response.json())
         .then(list => {
-            list = list.sort(() => Math.random() - 0.5)
+            // list = list.sort(() => Math.random() - 0.5)
+
             return list;
         })
         .then(renderItem)
@@ -33,6 +56,7 @@ function shuffer() {
 // main product
 
 function renderItem(items) {
+
     var listProduct = document.getElementById('list-product');
     var htmls = items.map(function (item) {
         return `
@@ -146,18 +170,19 @@ function handlePagination() {
                     paginationItemLink[3].textContent = Number(paginationItemLink[3].textContent) - 1;
                     document.querySelector('.pagination-item--active').classList.remove('pagination-item--active');
                     paginationItem[2].classList.add('pagination-item--active');
-                    shuffer();
+                    reload()
                 }
                 if (content < 2) {
                     document.querySelector('.pagination-item--active').classList.remove('pagination-item--active');
                     this.classList.add('pagination-item--active');
+                    reload()
                 }
                 checkPageArrow();
             }
             paginationItem[2].onclick = function () {
                 document.querySelector('.pagination-item--active').classList.remove('pagination-item--active');
                 this.classList.add('pagination-item--active');
-                shuffer();
+                reload()
                 checkPageArrow();
             }
             paginationItem[3].onclick = function (e) {
@@ -169,7 +194,7 @@ function handlePagination() {
                     paginationItemLink[3].textContent = Number(paginationItemLink[3].textContent) + 1;
                     document.querySelector('.pagination-item--active').classList.remove('pagination-item--active');
                     paginationItem[2].classList.add('pagination-item--active');
-                    shuffer();
+                    reload()
                 }
                 if (content == 7) {
                     document.querySelector('.pagination-item--active').classList.remove('pagination-item--active');
@@ -187,7 +212,7 @@ function handlePagination() {
                     paginationItemLink[1].textContent = 5;
                     paginationItemLink[2].textContent = 6;
                     paginationItemLink[3].textContent = 7;
-                    shuffer();
+                    reload()
                     checkPageArrow();
                 }
                 else {
@@ -211,7 +236,7 @@ function handlePagination() {
                     paginationItemLink[1].textContent = Number(paginationItemLink[1].textContent) - 1;
                     paginationItemLink[2].textContent = Number(paginationItemLink[2].textContent) - 1;
                     paginationItemLink[3].textContent = Number(paginationItemLink[3].textContent) - 1;
-                    shuffer();
+                    reload()
                 }
                 checkPageArrow();
             }
@@ -229,7 +254,7 @@ function handlePagination() {
                     paginationItemLink[1].textContent = Number(paginationItemLink[1].textContent) + 1;
                     paginationItemLink[2].textContent = Number(paginationItemLink[2].textContent) + 1;
                     paginationItemLink[3].textContent = Number(paginationItemLink[3].textContent) + 1;
-                    shuffer();
+                    reload()
                 }
                 checkPageArrow();
             }
@@ -246,7 +271,7 @@ for (var i = 0; i < 4; i++) {
         var headerCatagoryActive = document.querySelector('.header__sort-item--active');
         headerCatagoryActive.classList.remove('header__sort-item--active');
         this.classList.add('header__sort-item--active');
-        shuffer();
+        reload()
     }
 
 }
@@ -255,7 +280,7 @@ var mobileCatagoryItem = document.querySelectorAll('.mobile-category-item');
 
 for (var i = 0; i < mobileCatagoryItem.length; i++) {
     mobileCatagoryItem[i].onclick = function () {
-        shuffer();
+        reload()
     }
 }
 
@@ -266,7 +291,7 @@ for (var i = 0; i < 3; i++) {
         var homeFilterActive = document.querySelector('.home-filter-btn.btn--primary');
         homeFilterActive.classList.remove('btn--primary');
         this.classList.add('btn--primary');
-        shuffer();
+        reload()
     }
 }
 
@@ -274,7 +299,7 @@ var homeFilterSort = document.querySelectorAll('.home-filter-sort-item-link');
 
 for (var i = 0; i < 2; i++) {
     homeFilterSort[i].onclick = function () {
-        shuffer();
+        reload()
     }
 }
 
@@ -284,7 +309,7 @@ homeFilterPage[0].onclick = function () {
     var currentPage = document.querySelector('.home-filter-page-now');
     if (currentPage.textContent != 1) {
         currentPage.textContent = Number(currentPage.textContent) - 1;
-        shuffer();
+        reload()
     }
     if (currentPage.textContent != 14) {
         homeFilterPage[1].classList.remove('home-filter-page-btn--disable');
@@ -297,7 +322,7 @@ homeFilterPage[1].onclick = function () {
     var currentPage = document.querySelector('.home-filter-page-now');
     if (currentPage.textContent != 14) {
         currentPage.textContent = Number(currentPage.textContent) + 1;
-        shuffer();
+        reload()
     }
     if (currentPage.textContent != 1) {
         homeFilterPage[0].classList.remove('home-filter-page-btn--disable');
