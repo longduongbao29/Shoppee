@@ -1,6 +1,6 @@
 
 
-fetch('/products/1', {
+fetch('/api/v1/products/1/25', {
     method: 'get',
     headers: {
         'Content-Type': 'application/json'
@@ -18,7 +18,7 @@ fetch('/products/1', {
 function reload() {
     const page = Number(document.querySelector('.pagination-item--active').textContent);
     console.log(page);
-    const link = '/products/' + page;
+    const link = 'api/v1/products/' + ((page - 1) * 25 + 1) + '/' + (page * 25);
     fetch(link, {
         method: 'get',
         headers: {

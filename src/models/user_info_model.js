@@ -1,4 +1,4 @@
-const db = require('../mysqlconnector');
+const db = require('../connectSQL');
 
 const UserInfoModel = {
     tableName: 'user_infos',

@@ -1,29 +1,18 @@
 const LoginController = require('./LoginController');
-const db = require('../../mysqlconnector');
+const db = require('../../connectSQL');
+const UserAPI = require('./UserAPI');
+const ProductAPI = require('./ProductAPI');
 class SiteController {
 
     home(req, res) {
         let user;
         if (LoginController.loggedIn(req)) {
-
-            db.query("SELECT * FROM users WHERE username=?", req.session.loggedInUser.username, function (err, user_) {
-                user = user_[0];
-            });
+            user = UserAPI.loggedInUser(req, res);
         }
-        res.render('home', { showHeader: true, showFooter: true, loggedIn: LoginController.loggedIn(req), user: user });
-    }
-    getProducts(req, res) {
-        const page = req.params.page;
-        db.query("SELECT *,FORMAT(oldPrice, 0) AS oldPrice,FORMAT(newPrice, 0) AS newPrice FROM products WHERE products.id BETWEEN ? AND ?", [(page - 1) * 25 + 1, page * 25], function (err, products) {
-
-            if (err) {
-                return res.status(404).send(err);
-            }
-            return res.send(products);
-        });
-
+        return res.render('home', { showHeader: true, showFooter: true, loggedIn: LoginController.loggedIn(req), user: user });
     }
 
+    
 
     loginSite(req, res) {
         res.render('login', { showHeader: false, showFooter: false, isLoginForm: true });

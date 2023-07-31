@@ -1,5 +1,5 @@
 const bcrypt = require('bcrypt');
-const db = require('../../mysqlconnector');
+const db = require('../../connectSQL');
 const User = require('../../models/user_model')
 const saltRounds = 10;
 

@@ -3,7 +3,7 @@ const morgan = require('morgan');
 const path = require('path');
 const handlebars = require('express-handlebars');
 const bodyParser = require('body-parser')
-const mysqlConnector = require('./mysqlconnector');
+const mysqlConnector = require('./connectSQL');
 const session = require('express-session');
 const cookieParser = require('cookie-parser');
 
@@ -11,7 +11,7 @@ const app = express();
 const port = 3000;
 const route = require('./routes');
 
-app.use(morgan(':method :url :response-time'));
+app.use(morgan('combined'));
 //Lấy data từ form
 app.use(bodyParser.urlencoded({ extended: false }))
 app.use(bodyParser.json())
